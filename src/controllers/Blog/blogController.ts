@@ -1,7 +1,7 @@
-import express from 'express'
+import { Request, Response, NextFunction } from 'express'
 import blogModel from '../../models/Blog/blogModel'
 
-export const Blog = async ( req: express.Request, res: express.Response, next: express.NextFunction ) => {
+export const Blog = async (req: Request, res: Response, next: NextFunction,) => {
     try {
         const doc = await blogModel.find()
         res
@@ -15,7 +15,7 @@ export const Blog = async ( req: express.Request, res: express.Response, next: e
     }
 }
 
-export const BlogById = async ( req: express.Request, res: express.Response, next: express.NextFunction ) => {
+export const BlogById = async (req: Request, res: Response, next: NextFunction,) => {
     const { id } = req.params
     try {
         const doc = await blogModel.findById(id)
@@ -35,7 +35,7 @@ export const BlogById = async ( req: express.Request, res: express.Response, nex
     }
 }
 
-export const Insert = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+export const Insert = async (req: Request, res: Response, next: NextFunction,) => {
     const { title, author, content, content_img } = req.body;
     try {
         const create = new blogModel({
@@ -57,8 +57,9 @@ export const Insert = async (req: express.Request, res: express.Response, next: 
     }
 }
 
-export const Update = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    const { id, title, content, content_img } = req.body;
+export const Update = async (req: Request, res: Response, next: NextFunction,) => {
+    const { title, content, content_img } = req.body;
+    const { id } = req.params
     try {
         const doc: any = await blogModel.findById(id)
         if(!doc) {
@@ -81,8 +82,8 @@ export const Update = async (req: express.Request, res: express.Response, next: 
     }
 }
 
-export const Delete = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    const { id } = req.body
+export const Delete = async (req: Request, res: Response, next: NextFunction,) => {
+    const { id } = req.params
     try {
         const doc = await blogModel.deleteOne({ _id: id})
         if(doc.deletedCount === 0 || doc === null) {
