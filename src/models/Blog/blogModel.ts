@@ -1,11 +1,26 @@
-import mongoose,{ Schema } from 'mongoose'
+import { Schema, model } from 'mongoose'
 
-const blogSchema = new Schema({
+interface Blog {
+    title: string;
+    author: string;
+    content: string;
+    title_img: string;
+    content_type: string;
+    content_img: any;
+    hidden: boolean;
+    meta: any
+
+}
+
+const schema = new Schema<Blog>({
     title: {
         type: String,
         required: true
     },
-    author: String,
+    author: {
+        type: String,
+        defalut: "admin"
+    },
     content: {
         type: String,
         required: true
@@ -36,6 +51,6 @@ const blogSchema = new Schema({
     timestamps: true
 })
 
-const Blog = mongoose.model('Blog', blogSchema);
+const Blog = model('Blog', schema);
 
 export default  Blog

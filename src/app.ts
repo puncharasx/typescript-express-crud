@@ -7,7 +7,7 @@ import bodyParser from 'body-parser'
 import errorHandler from "./middlewares/errorHandler";
 
 //Import routers
-import blogRouter from './routes/blogRoute'
+import blogRouter from './routes/Blog/blogRoute'
 
 
 const app: Express = express()
