@@ -10,16 +10,15 @@ opts.secretOrKey = config.JWT_SECRET;
 
 passport.use(new Strategy(opts, async (jwt_payload, done) => {
     try {
-        const user = await UserModel.findById(jwt_payload.id);
-        if (!user) {
+        const users = await UserModel.findById(jwt_payload._id);
+        if (!users) {
             return done(new Error('ไม่พบผู้ใช้ในระบบ'), null)
         }
-        console.log(jwt_payload)
-        return done(null, user);
+        return done(null, users);
 
     } catch (error) {
         done(error)
     }
 }));
-const auth_login = passport.authenticate('jwt', { session: false })
-export default auth_login
+
+export default passport.authenticate('jwt', { session: false })
